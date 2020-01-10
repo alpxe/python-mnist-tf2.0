@@ -11,6 +11,7 @@ bin-debug/
 .idea/
 assets/MNIST_DATA
 assets/tfrecords
+checkpoints/
 
 
 # Executables

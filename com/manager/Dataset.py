@@ -67,16 +67,25 @@ class Dataset(Singleton):
 
         dataset = dataset.repeat()
         dataset = dataset.map(self.__format)
-        dataset = dataset.batch(10)
+        dataset = dataset.batch(100)
+        dataset = dataset.map(self.__processing)
 
         return dataset
 
     @staticmethod
+    def __processing(record):
+        label = tf.one_hot(tf.squeeze(record["label"]), depth=10)
+        image = tf.cast(tf.reshape(record["image"], [-1, 28 * 28]), dtype=tf.float32) / 255.
+        return label, image
+
+    @staticmethod
     def __format(record):
-        return tf.io.parse_single_example(record, features={
+        fs = {
             "label": tf.io.FixedLenFeature([1], dtype=tf.int64),
             "image": tf.io.FixedLenFeature([28 * 28], dtype=tf.int64)
-        })
+        }
+        fats = tf.io.parse_single_example(record, features=fs)
+        return fats
 
     @staticmethod
     def __open_path(path):
