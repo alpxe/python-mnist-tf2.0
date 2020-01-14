@@ -9,9 +9,9 @@ import tensorflow as tf
 """
 
 
-class MnistModel(tf.keras.Model):
+class TestModel(tf.keras.Model):
     def __init__(self):
-        super(MnistModel, self).__init__()
+        super(TestModel, self).__init__()
 
         # 注册layers
 
