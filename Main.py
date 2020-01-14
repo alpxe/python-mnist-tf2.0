@@ -22,17 +22,17 @@ class Main:
         # self.model.load_weights('checkpoints/my_checkpoint')
 
         # 梯度下降优化器
-        self.optimizer = tf.optimizers.Adam(0.00001)
+        self.optimizer = tf.optimizers.Adam(0.0001)
 
         # image shape=(10,784)
         for step, (label, image) in enumerate(dataset):
             loss = self.run_optimization(image, label)
             print("loss: {}".format(loss))
 
-            if loss < 0.1:
-                # 保存模型权重(覆盖)
-                self.model.save_weights('checkpoints/my_checkpoint')
-                break
+            # if loss < 0.1:
+            #     # 保存模型权重(覆盖)
+            #     self.model.save_weights('checkpoints/my_checkpoint')
+            #     break
 
     # Optimization process.
     def run_optimization(self, x, y):
